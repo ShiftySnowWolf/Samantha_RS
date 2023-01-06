@@ -651,16 +651,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rmpv"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "de8813b3a2f95c5138fe5925bfb8784175d88d6bff059ba8ce090aa891319754"
-dependencies = [
- "num-traits",
- "rmp",
-]
-
-[[package]]
 name = "rustls"
 version = "0.20.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -832,7 +822,6 @@ dependencies = [
  "dotenv",
  "rmp",
  "rmp-serde",
- "rmpv",
  "serde",
  "serenity",
  "tokio",

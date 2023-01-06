@@ -9,8 +9,10 @@ use serenity::model::gateway::Ready;
 use serenity::model::prelude::Member;
 use serenity::model::id::{GuildId, UserId};
 use serenity::prelude::*;
+// use crate::commands::refer::load_referrals;
 
 struct Handler;
+
 
 #[async_trait]
 impl EventHandler for Handler {
@@ -31,12 +33,15 @@ impl EventHandler for Handler {
                 .create_application_command(|command| commands::refer::register(command))
         }).await;
 
-        println!("I now have the following guild commands: {:#?}", commands);
+        println!("Loaded these commands:");
+        for command in &commands.unwrap() {
+                println!("-> {}", &command.name);
+        }
     }
 
     async fn interaction_create(&self, ctx: Context, interaction: Interaction) {
         if let Interaction::ApplicationCommand(command) = interaction {
-            println!("Received command interaction: {:#?}", command);
+            // println!("Received command interaction: {:#?}", command);
 
             let content = match command.data.name.as_str() {
                 "ping" => commands::ping::run(),
@@ -71,6 +76,9 @@ async fn main() {
     // Build our client.
     let mut client = Client::builder(token, GatewayIntents::empty())
         .event_handler(Handler).await.expect("Error creating client");
+
+    // Load stored data.
+    // load_referrals();
 
     if let Err(why) = client.start().await {
         println!("Client error: {:?}", why);
